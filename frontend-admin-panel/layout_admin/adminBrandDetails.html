@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Управление категориями</title>
+
+    <!-- Локальный Bootstrap -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование системы</a>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="./adminProductList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="./adminCategoryList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="./adminAttributeList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="./adminBrandList.html" class="list-group-item list-group-item-action active">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="./adminUserList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="./adminOrdersList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="./adminConfigurator.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент + фильтры -->
+    <div id="content">
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item"><a href="adminCategoryList.html">Управление брендами</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактировать бренд</li>
+            </ol>
+        </nav>
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0 text-accent"><i class="bi bi-pencil-square me-2"></i> Редактирование бренда Prology</h5>
+            </div>
+            <div class="card-body">
+                <form id="category-edit-form">
+
+                    <!-- Name -->
+                    <div class="mb-3 row">
+                        <label for="cat-name" class="col-sm-3 col-form-label">Название</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="cat-name" class="form-control" placeholder="Введите название">
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3 row">
+                        <label for="cat-desc" class="col-sm-3 col-form-label">Краткое описание</label>
+                        <div class="col-sm-9">
+                            <textarea id="cat-desc" class="form-control" rows="2" placeholder="Краткое описание бренда"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3 row">
+                        <label for="cat-desc" class="col-sm-3 col-form-label">Описание</label>
+                        <div class="col-sm-9">
+                            <textarea id="cat-desc" class="form-control" rows="4" placeholder="Описание бренда"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Изображение</label>
+                        <div class="col-sm-9">
+                            <div class="main-image-container">
+                                <img id="main-image" src="../src/assets/images/products/1.jpg"
+                                     class="img-thumbnail" style="max-width: 7rem;" alt="Основное изображение товара">
+                                <button type="button" class="main-image-edit" onclick="document.getElementById('main-image-input').click()">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="main-image-input" class="d-none" accept="image/*">
+                            <small class="text-muted d-block mt-2">JPEG, PNG. Макс. 2 МБ.</small>
+                        </div>
+                    </div>
+
+
+                    <!-- Action buttons -->
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-outline-secondary me-2" onclick="cancelEdit()">
+                            <i class="bi bi-x-circle"></i> Отмена
+                        </button>
+                        <button type="submit" class="btn btn-accent">
+                            <i class="bi bi-save-fill"></i> Сохранить
+                        </button>
+                    </div>
+                    <input type="hidden" id="cat-id" value="">
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

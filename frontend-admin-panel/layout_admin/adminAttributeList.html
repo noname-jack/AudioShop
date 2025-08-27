@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Управление категориями</title>
+
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование системы</a>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="./adminProductList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="./adminCategoryList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="./adminAttributeList.html" class="list-group-item list-group-item-action active">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="./adminBrandList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="./adminUserList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="./adminOrdersList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="./adminConfigurator.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент + фильтры -->
+    <div id="content">
+
+
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Управление характеристиками</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 text-accent"><i class="bi bi-sliders me-2"></i> Список характеристик</h5>
+                        <button class="btn btn-accent" onclick="startEditCategory()">
+                            <i class="bi bi-plus-lg"></i> Добавить характеристику
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Attributes table -->
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th style="width: 30%;">Название</th>
+                            <th style="width: 20%;">Тип значения</th>
+                            <th style="width: 10%;">Действия</th>
+                        </tr>
+                        </thead>
+                        <tbody id="attributes-table">
+                        <!-- Примеры строк -->
+
+                        <tr class="attribute-row">
+                          <td><input type="text" class="form-control attr-name" value="Диаметр / Типоразмер"></td>
+                          <td>
+                            <select class="form-select attr-value-type">
+                              <option value="DOUBLE">Число</option>
+                              <option value="STRING">Строка</option>
+                              <option value="BOOLEAN">Логический тип</option>
+                            </select>
+                          </td>
+
+                          <td>
+                            <button class="btn btn-sm btn-outline-success me-1" onclick="saveRow(this)">
+                              <i class="bi bi-save"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(this)">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="attribute-row">
+                            <td><input type="text" class="form-control attr-name" value="Re (Номинальное сопротивление/Импеданс), Ом"></td>
+                            <td>
+                                <select class="form-select attr-value-type">
+                                    <option value="DOUBLE">Число</option>
+                                    <option value="STRING">Строка</option>
+                                    <option value="BOOLEAN">Логический тип</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="saveRow(this)">
+                                    <i class="bi bi-save"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="attribute-row">
+                            <td><input type="text" class="form-control attr-name" value="Нижняя граница частот, Гц"></td>
+                            <td>
+                                <select class="form-select attr-value-type">
+                                    <option value="DOUBLE">Число</option>
+                                    <option value="STRING">Строка</option>
+                                    <option value="BOOLEAN">Логический тип</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="saveRow(this)">
+                                    <i class="bi bi-save"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="attribute-row">
+                            <td><input type="text" class="form-control attr-name" value="Верхняя граница частот, Гц"></td>
+                            <td>
+                                <select class="form-select attr-value-type">
+                                    <option value="DOUBLE">Число</option>
+                                    <option value="STRING">Строка</option>
+                                    <option value="BOOLEAN">Логический тип</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="saveRow(this)">
+                                    <i class="bi bi-save"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="attribute-row">
+                            <td><input type="text" class="form-control attr-name" value="Max (Пиковая мощность), Вт"></td>
+                            <td>
+                                <select class="form-select attr-value-type">
+                                    <option value="DOUBLE">Число</option>
+                                    <option value="STRING">Строка</option>
+                                    <option value="BOOLEAN">Логический тип</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="saveRow(this)">
+                                    <i class="bi bi-save"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="attribute-row">
+                            <td><input type="text" class="form-control attr-name" value="RMS (Номинальная мощность), Вт"></td>
+                            <td>
+                                <select class="form-select attr-value-type">
+                                    <option value="DOUBLE">Число</option>
+                                    <option value="STRING">Строка</option>
+                                    <option value="BOOLEAN">Логический тип</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="saveRow(this)">
+                                    <i class="bi bi-save"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header text-accent">
+                        <i class="bi bi-funnel-fill me-2"></i> Фильтры
+                    </div>
+                    <div class="card-body">
+                        <form id="category-form">
+                            <!-- Parent -->
+                            <div class="mb-3">
+                                <label for="parent-id" class="form-label">Категория</label>
+                                <select id="parent-id" class="form-select opt-indent">
+                                    <option value="">— Нет —</option>
+                                    <!-- Пример вложенных опций -->
+                                    <option value="53" data-level="0">Акустические системы</option>
+                                    <option value="63" data-level="1">Модель A</option>
+                                    <option value="64" data-level="2">Вариант 1</option>
+                                    <!-- … -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="value-type-id" class="form-label">Тип значения</label>
+                                <select id="value-type-id" class="form-select opt-indent">
+                                    <option value="">— Все —</option>
+                                    <!-- Пример вложенных опций -->
+                                    <option value="53" data-level="0">Число</option>
+                                    <option value="63" data-level="1">Строка</option>
+                                    <option value="64" data-level="2">Логический тип</option>
+                                    <!-- … -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="filter-name" class="form-label">Название характеристики</label>
+                                <input type="text" id="filter-name" class="form-control" placeholder="Введите название">
+                            </div>
+                            <!-- Actions -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-accent">Применить</button>
+                                <button type="button" id="reset-filters" class="btn btn-outline-secondary">Сбросить</button>
+                            </div>
+                            <input type="hidden" id="cat-id" value="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

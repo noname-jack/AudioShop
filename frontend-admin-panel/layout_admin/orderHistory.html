@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ №1247</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .order {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .status {
+            color: #dc3545;
+            font-weight: bold;
+            background-color: rgba(220, 53, 69, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .order-details {
+            background-color: #252525;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            color: #aaa;
+            border-left: 3px solid #dc3545;
+        }
+
+        .product-list {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .product-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #333;
+            color: #ddd;
+        }
+
+        .product-list li:last-child {
+            border-bottom: none;
+        }
+
+        .total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            text-align: right;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+        }
+
+        .history {
+            margin-top: 30px;
+        }
+
+        .history-title {
+            color: #dc3545;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #dc3545;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #dc3545;
+            border: 2px solid #1e1e1e;
+        }
+
+        .timeline-date {
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .timeline-status {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .timeline-description {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .bg-dark-custom {
+            background-color: #1a1a1a !important;
+        }
+
+        .text-red {
+            color: #dc3545 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="order">
+        <div class="order-header">
+            <div class="h4 text-red">Заказ №1247 от 20.06.2025</div>
+            <div class="status">Статус: завершён</div>
+        </div>
+        <div class="order-details">
+            Способ оплаты: Онлайн через YooKassa<br>
+            Доставка: Самовывоз
+        </div>
+        <ul class="product-list">
+            <li>PRM-120 Poseidon — 1 шт.</li>
+            <li>State Neo Series NT-72 — 1 шт.</li>
+            <li>State Custom Series CM-25.1N — 1 шт.</li>
+        </ul>
+        <div class="total">Сумма заказа: 39 790 руб</div>
+
+        <!-- История заказа -->
+        <div class="history">
+            <div class="history-title">История заказа</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">20.06.2025 14:30</div>
+                    <div class="timeline-status">Заказ завершён</div>
+                    <div class="timeline-description">Товар получен покупателем</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">20.06.2025 12:15</div>
+                    <div class="timeline-status">Заказ готов к выдаче</div>
+                    <div class="timeline-description">Вы можете забрать заказ в пункте выдачи</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">20.06.2025 11:20</div>
+                    <div class="timeline-status">Заказ собран</div>
+                    <div class="timeline-description">Все товары готовы к выдаче</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">20.06.2025 10:45</div>
+                    <div class="timeline-status">Оплата подтверждена</div>
+                    <div class="timeline-description">Сумма 39 790 руб. успешно оплачена</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">20.06.2025 10:42</div>
+                    <div class="timeline-status">Заказ оформлен</div>
+                    <div class="timeline-description">Ожидается оплата</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

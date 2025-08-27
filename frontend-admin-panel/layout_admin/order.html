@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оформление заказа</title>
+    <style>
+        body {
+            background-color: #000000;
+            font-family: sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .order-box {
+            background-color: #1e1e1e;
+            padding: 20px 25px;
+            border-radius: 8px;
+            width: 380px;
+        }
+
+        .order-box h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px 0;
+            text-align: left;
+        }
+
+        td:last-child {
+            text-align: right;
+        }
+
+        tr:not(:last-child) {
+            border-bottom: 1px solid #444;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        select {
+            width: 80%;
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            background-color: #3a3a3a;
+            color: white;
+            font-size: 14px;
+        }
+
+        .cont-total{
+            display: flex;
+            justify-content: space-between;
+        }
+        .total {
+            width: 100%;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .total-1 {
+            width: 100%;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .order-button {
+            background-color: #b93f3f;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            width: 60%;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .order-button:hover {
+            background-color: #d94132;
+        }
+    </style>
+</head>
+<body>
+<div class="order-box">
+    <h2>Оформление заказа</h2>
+
+    <table>
+        <tr>
+            <td>PRM-120 Poseidon</td>
+            <td>x1</td>
+            <td>13 990 руб</td>
+        </tr>
+        <tr>
+            <td>State Neo Series NT-72 4Om</td>
+            <td>x1</td>
+            <td>2 400 руб</td>
+        </tr>
+        <tr>
+            <td>State Custom Series CM-25.1N 4Om</td>
+            <td>x1</td>
+            <td>8 900 руб</td>
+        </tr>
+        <tr>
+            <td>State Nautica MA-240.2</td>
+            <td>x1</td>
+            <td>14 500 руб</td>
+        </tr>
+    </table>
+
+    <div class="section">
+        <label for="delivery">Способ доставки</label>
+        <select id="delivery">
+            <option>Самовывоз — 0 руб</option>
+            <option>Доставка курьером — 500 руб</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <label for="payment">Способ оплаты</label>
+        <select id="payment">
+            <option>Оплата при получении</option>
+            <option selected>Онлайн-оплата через YooKassa</option>
+        </select>
+    </div>
+    <div class="cont-total">
+        <div class="total">Итого: </div>
+        <div class="total-1">39 790 руб</div>
+    </div>
+
+
+    <button class="order-button">Оформить заказ</button>
+</div>
+</body>
+</html>

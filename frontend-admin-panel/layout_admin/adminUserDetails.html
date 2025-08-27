@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Управление пользователями</title>
+
+    <!-- Локальный Bootstrap -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование системы</a>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="./adminProductList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="./adminCategoryList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="./adminAttributeList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="./adminBrandList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="./adminUserList.html" class="list-group-item list-group-item-action active">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="./adminOrdersList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="./adminConfigurator.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент + фильтры -->
+    <div id="content">
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item"><a href="adminCategoryList.html">Управление пользователями</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактировать пользователя</li>
+            </ol>
+        </nav>
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0 text-accent"><i class="bi bi-pencil-square me-2"></i> Редактирование пользователя Александр Московченко aleks.moskov@gmail.com</h5>
+            </div>
+            <div class="card-body">
+                <form id="user-edit-form">
+                    <!-- Имя и фамилия -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Имя</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="first-name" placeholder="Имя" value="Александр">
+                        </div>
+                        <label class="col-sm-1 col-form-label">Фамилия</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="last-name" placeholder="Фамилия" value="Московченко">
+                        </div>
+                    </div>
+
+                    <!-- Email (только просмотр) -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control-plaintext" readonly value="aleks.moskov@gmail.com">
+                        </div>
+                    </div>
+
+                    <!-- Телефон -->
+                    <div class="mb-3 row">
+                        <label for="telephone" class="col-sm-3 col-form-label">Телефон</label>
+                        <div class="col-sm-9">
+                            <input type="tel" class="form-control" id="telephone" placeholder="+7 (___) ___-__-__" value="+7 (952) 430-58-83">
+                        </div>
+                    </div>
+
+                    <!-- Роль -->
+                    <div class="mb-4 row">
+                        <label for="role" class="col-sm-3 col-form-label">Роль</label>
+                        <div class="col-sm-9">
+                            <select id="role" class="form-select">
+                                <option value="user">Пользователь</option>
+                                <option value="manager">Менеджер</option>
+                                <option value="admin">Администратор</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Список адресов -->
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0"><i class="bi bi-geo-alt me-1"></i> Адреса пользователя</h6>
+                            <button type="button" class="btn btn-sm btn-outline-success" onclick="addAddressRow()">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                        <div class="card-body p-2" id="addresses-list">
+                            <div class="address-row row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Страна</label>
+                                    <input type="text" class="form-control" value="Россия">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Область</label>
+                                    <input type="text" class="form-control" value="Белгородская">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Город</label>
+                                    <input type="text" class="form-control" value="Белгород">
+                                </div>
+                                <div class="col-md-4 mt-2">
+                                    <label class="form-label">Улица</label>
+                                    <input type="text" class="form-control" value="Костюкова">
+                                </div>
+                                <div class="col-md-2 mt-2">
+                                    <label class="form-label">Дом</label>
+                                    <input type="text" class="form-control" value="46">
+                                </div>
+                                <div class="col-md-2 mt-2">
+                                    <label class="form-label">Квартира</label>
+                                    <input type="text" class="form-control" value="2">
+                                </div>
+                                <div class="col-md-2 mt-2">
+                                    <label class="form-label">Индекс</label>
+                                    <input type="text" class="form-control" value="308000">
+                                </div>
+                                <div class="col-md-2 text-end mt-4">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="removeAddressRow(this)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Заказы -->
+                    <div class="mb-4 row align-items-center order-container">
+                        <label class="col-sm-3 col-form-label">Заказы</label>
+                        <div class="col-sm-3">
+                            <span id="order-count" class="badge bg-secondary">2</span>
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <button type="button" class="btn btn-outline-primary w-auto" style="min-width: 180px;" onclick="viewOrders()">
+                                <i class="bi bi-basket-fill me-1"></i> Просмотреть заказы
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <!-- Кнопки действий -->
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-outline-secondary me-2" onclick="cancelEdit()">
+                            <i class="bi bi-x-circle"></i> Отмена
+                        </button>
+                        <button type="submit" class="btn btn-accent">
+                            <i class="bi bi-save-fill"></i> Сохранить
+                        </button>
+                    </div>
+
+                    <input type="hidden" id="user-id" value="123">
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

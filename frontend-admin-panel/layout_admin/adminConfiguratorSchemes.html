@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Управление схемами</title>
+    <!-- Локальный Bootstrap -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование схемы аудиосистемы</a>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="./adminProductList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="./adminCategoryList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="./adminAttributeList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="./adminBrandList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="./adminUserList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="./adminOrdersList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="./adminConfigurator.html" class="list-group-item list-group-item-action active">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент + фильтры -->
+    <div id="content">
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item"><a href="adminCategoryList.html">Управление схемами аудиосистемы</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактировать схему</li>
+            </ol>
+        </nav>
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0 text-accent"><i class="bi bi-pencil-square me-2"></i> Редактирование схемы Громкая №1</h5>
+            </div>
+            <div class="card-body">
+                <form id="scheme-edit-form">
+                    <!-- Тип аудиосистемы -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Тип аудиосистемы</label>
+                        <div class="col-sm-9">
+                            <select id="system-type" class="form-select">
+                                <option value="SPL">Громкая (SPL)</option>
+                                <option value="SQ">Качественная (SQ)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Название -->
+                    <div class="mb-3 row">
+                        <label for="scheme-name" class="col-sm-3 col-form-label">Название схемы</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="scheme-name" class="form-control" placeholder="Введите название" value="Громкая №1">
+                        </div>
+                    </div>
+                    <!-- Описание -->
+                    <div class="mb-3 row">
+                        <label for="scheme-desc" class="col-sm-3 col-form-label">Описание схемы</label>
+                        <div class="col-sm-9">
+                            <textarea id="scheme-desc" class="form-control" rows="3" placeholder="Описание схемы"></textarea>
+                        </div>
+                    </div>
+                    <!-- Изображение -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Изображение схемы</label>
+                        <div class="col-sm-9">
+                            <div class="main-image-container">
+                                <img id="main-image" src="./assets/img/scheme1.png"
+                                     class="img-thumbnail" style="max-width: 15rem;" alt="Основное изображение товара">
+                                <button type="button" class="main-image-edit" onclick="document.getElementById('main-image-input').click()">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="main-image-input" class="d-none" accept="image/*">
+                            <small class="text-muted d-block mt-2">JPEG, PNG. Макс. 2 МБ.</small>
+                        </div>
+                    </div>
+
+                    <!-- Компоненты -->
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0"><i class="bi bi-gear-fill me-1"></i> Компоненты схемы</h6>
+                            <button type="button" class="btn btn-sm btn-outline-success" onclick="addComponentRow()">
+                                <i class="bi bi-plus-lg"></i> Добавить компонент
+                            </button>
+                        </div>
+                        <div class="card-body p-2" id="components-list">
+                            <!-- Шаблон строки -->
+
+                            <div class="row align-items-center mb-3 component-row">
+                                <div class="col-md-3">
+                                    <label class="form-label">Категория товаров</label>
+                                    <select class="form-select comp-category">
+                                        <option value="">Твитеры эстрадные</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Тип компонента</label>
+                                    <select class="form-select comp-type">
+                                        <option value="front_speaker">Передний динамик</option>
+                                        <option value="rear_speaker">Задний динамик</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Фильтры компонента</label>
+                                    <div class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+                                        <div class="form-check">
+                                            <input class="form-check-input comp-filter" type="checkbox" value="115" id="filter-115">
+                                            <label class="form-check-label" for="filter-115">Диаметр/типоразмер</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input comp-filter" type="checkbox" value="112" id="filter-112">
+                                            <label class="form-check-label" for="filter-112">Re (Номинальное сопротивление/Импеданс), Ом</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input comp-filter" type="checkbox" value="113" id="filter-113">
+                                            <label class="form-check-label" for="filter-113">RMS (Номинальная мощность), Вт</label>
+                                        </div>
+
+
+                                        <!-- …добавьте остальные фильтры… -->
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 text-end">
+                            <button class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <!-- Кнопки Действий -->
+        <div class="text-end">
+            <button type="reset" class="btn btn-outline-secondary me-2" onclick="cancelEdit()">
+                <i class="bi bi-x-circle"></i> Отмена
+            </button>
+            <button type="submit" class="btn btn-accent">
+                <i class="bi bi-save-fill"></i> Сохранить
+            </button>
+        </div>
+        <input type="hidden" id="scheme-id" value="1">
+        </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+<script src="bootstrap/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('btn-toggle')
+        .addEventListener('click', ()=> document.getElementById('sidebar').classList.toggle('collapsed'));
+
+    // Image preview
+    document.getElementById('scheme-image-input').addEventListener('change', e=>{
+        const f=e.target.files[0];
+        if(!f) return;
+        const r=new FileReader();
+        r.onload=ev=> document.getElementById('scheme-image-preview').src=ev.target.result;
+        r.readAsDataURL(f);
+    });
+
+    // Components logic
+    function addComponentRow() {
+        const tpl=document.createElement('div');
+        tpl.className='row align-items-center mb-3 component-row';
+        tpl.innerHTML=`
+      <div class="col-md-3">
+        <select class="form-select comp-category">
+          <option value="">Категория товара</option>
+          <!-- TODO: заполнить опциями -->
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="form-select comp-type">
+          <option value="front_speaker">Передний динамик</option>
+          <option value="rear_speaker">Задний динамик</option>
+          <option value="head_unit">Головное устройство</option>
+          <option value="amp_front">Усилитель фронта</option>
+          <!-- … и т.д. … -->
+        </select>
+      </div>
+      <div class="col-md-4">
+        <select class="form-select comp-filters" multiple>
+          <!-- TODO: опции атрибутов для фильтрации -->
+        </select>
+        <small class="text-muted">Ctrl+клик для множественного выбора</small>
+      </div>
+      <div class="col-md-2 text-end">
+        <button class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>`;
+        document.getElementById('components-list').appendChild(tpl);
+    }
+
+    function removeComponentRow(btn) {
+        btn.closest('.component-row').remove();
+    }
+
+    function cancelEdit() {
+        document.getElementById('scheme-edit-form').reset();
+        document.getElementById('components-list').innerHTML='';
+        document.getElementById('scheme-image-preview').src='';
+    }
+
+    document.getElementById('scheme-edit-form').addEventListener('submit', e=>{
+        e.preventDefault();
+        // TODO: собрать данные и отправить AJAX на сохранение
+        alert('Схема сохранена!');
+    });
+
+    // При загрузке можно вызвать loadScheme(id) для заполнения формы и компонентов
+</script>
+</html>

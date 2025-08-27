@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Редактирование товара</title>
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="swiper/swiper-bundle.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование системы</a>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="./adminProductList.html" class="list-group-item list-group-item-action active">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="./adminCategoryList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="./adminAttributeList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="./adminBrandList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="./adminUserList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="./adminOrdersList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="./adminConfigurator.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+<!--    &lt;!&ndash; Основной контент &ndash;&gt;-->
+<!--    <div id="content">-->
+<!--        &lt;!&ndash; Хлебные крошки &ndash;&gt;-->
+<!--        <nav style="&#45;&#45;bs-breadcrumb-divider: '›';" aria-label="breadcrumb" class="mb-4">-->
+<!--            <ol class="breadcrumb">-->
+<!--                <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
+<!--                <li class="breadcrumb-item"><a href="adminProductList.html">Управление товарами</a></li>-->
+<!--                <li class="breadcrumb-item active" aria-current="page">Редактировать товар</li>-->
+<!--            </ol>-->
+<!--        </nav>-->
+
+<!--        &lt;!&ndash; Форма редактирования &ndash;&gt;-->
+<!--        <div class="card shadow-sm">-->
+<!--            <div class="card-header">-->
+<!--                <h5 class="mb-0 text-accent"><i class="bi bi-pencil-square me-2"></i> Редактирование товара Prology 13lx</h5>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <form id="edit-product-form">-->
+<!--                    &lt;!&ndash; Производитель &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label for="manufacturer" class="col-sm-3 col-form-label">Производитель</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <select id="manufacturer" class="form-select">-->
+<!--                                <option value="">Выберите производителя</option>-->
+<!--                                <option selected>Prology</option>-->
+<!--                                <option>Другой бренд</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Название &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label for="product-name" class="col-sm-3 col-form-label">Название</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <input type="text" id="product-name" class="form-control" value="Prology 13lx" placeholder="Введите название товара">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Описание &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label for="description" class="col-sm-3 col-form-label">Описание</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <textarea id="description" class="form-control" style="height:200px;" placeholder="HTML-редактор">Высококачественная автомобильная мультимедийная система Prology 13lx с современными функциями и интуитивным интерфейсом.</textarea>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Цена &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label for="price" class="col-sm-3 col-form-label">Цена (₽)</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <input type="number" id="price" class="form-control" value="15999.00" placeholder="0.00" step="0.01">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Количество &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label for="quantity" class="col-sm-3 col-form-label">Количество</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <input type="number" id="quantity" class="form-control" value="25" placeholder="0">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Основное изображение &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label class="col-sm-3 col-form-label">Основное изображение</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <div class="main-image-container">-->
+<!--                                <img id="main-image" src="../src/assets/images/products/1.jpg"-->
+<!--                                     class="img-thumbnail" style="max-width: 7rem;" alt="Основное изображение товара">-->
+<!--                                <button type="button" class="main-image-edit" onclick="document.getElementById('main-image-input').click()">-->
+<!--                                    <i class="bi bi-pencil"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <input type="file" id="main-image-input" class="d-none" accept="image/*">-->
+<!--                            <small class="text-muted d-block mt-2">JPEG, PNG. Макс. 2 МБ.</small>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Дополнительные изображения &ndash;&gt;-->
+<!--                    <div class="mb-4 row">-->
+<!--                        <label class="col-sm-3 col-form-label">Дополнительные изображения</label>-->
+<!--                        <div class="col-sm-9 right-dop-img-cont">-->
+<!--                            <div class="container-dop-img swiper" >-->
+<!--                                <div class="swiper-wrapper items-dop-img">-->
+<!--                                    <div class="swiper-slide item-dop-img">-->
+<!--                                        <img class="img-thumbnail" src="../src/assets/images/products/341-2.jpg" alt="Изображение 1">-->
+<!--                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">-->
+<!--                                            <i class="bi bi-trash"></i>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    <div class="swiper-slide item-dop-img">-->
+<!--                                        <img class="img-thumbnail" src="../src/assets/images/products/341-2.jpg" alt="Изображение 1">-->
+<!--                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">-->
+<!--                                            <i class="bi bi-trash"></i>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    <div class="swiper-slide item-dop-img">-->
+<!--                                        <img class="img-thumbnail" src="../src/assets/images/products/341-2.jpg" alt="Изображение 1">-->
+<!--                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">-->
+<!--                                            <i class="bi bi-trash"></i>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    <div class="swiper-slide item-dop-img">-->
+<!--                                        <img class="img-thumbnail" src="../src/assets/images/products/341-2.jpg" alt="Изображение 1">-->
+<!--                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">-->
+<!--                                            <i class="bi bi-trash"></i>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+
+<!--                                </div>-->
+<!--                                <button class="round-button prev-custom">-->
+<!--                                    <img src="./assets/angle-left-white.svg">-->
+<!--                                </button>-->
+<!--                                <button class="round-button next-custom">-->
+<!--                                    <img src="./assets/angle-right-white.svg">-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <button type="button"-->
+<!--                                    class="btn btn-outline-secondary add-image-btn d-flex align-items-center justify-content-center"-->
+<!--                                    onclick="addNewImage()">-->
+<!--                                <i class="bi bi-plus-circle fs-1 text-muted"></i>-->
+<!--                            </button>-->
+<!--                            &lt;!&ndash; скрытый input &ndash;&gt;-->
+<!--                            <input type="file" id="additional-image-input" class="d-none" accept="image/*" multiple>-->
+
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Характеристики товара &ndash;&gt;-->
+<!--                    <div class="mb-3 row">-->
+<!--                        <label class="col-sm-3 col-form-label">Характеристики</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <span class="badge bg-secondary me-2">5 характеристик</span>-->
+<!--                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#characteristicsModal">-->
+<!--                                    <i class="bi bi-pencil me-1"></i> Редактировать-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Отзывы &ndash;&gt;-->
+<!--                    <div class="mb-4 row">-->
+<!--                        <label class="col-sm-3 col-form-label">Отзывы</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <span class="badge bg-secondary me-2">12 отзывов</span>-->
+<!--                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#reviewsModal">-->
+<!--                                    <i class="bi bi-pencil me-1"></i> Редактировать-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Кнопки действий &ndash;&gt;-->
+<!--                    <div class="text-end">-->
+<!--                        <button type="reset" class="btn btn-outline-secondary me-2">-->
+<!--                            <i class="bi bi-x-circle"></i> Отмена-->
+<!--                        </button>-->
+<!--                        <button type="submit" class="btn btn-accent">-->
+<!--                            <i class="bi bi-save-fill"></i> Сохранить-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Модальное окно характеристик &ndash;&gt;-->
+<!--        <div class="modal fade" id="characteristicsModal" tabindex="-1">-->
+<!--            <div class="modal-dialog modal-lg">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title text-accent"><i class="bi bi-sliders me-2"></i>Редактирование характеристик</h5>-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div id="characteristics-list">-->
+<!--                            <div class="row mb-3 characteristic-item">-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <input type="text" class="form-control" value="Диагональ экрана" placeholder="Название характеристики">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input type="text" class="form-control" value="13 дюймов" placeholder="Значение">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-2">-->
+<!--                                    <button type="button" class="btn btn-outline-danger" onclick="removeCharacteristic(this)">-->
+<!--                                        <i class="bi bi-trash"></i>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mb-3 characteristic-item">-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <input type="text" class="form-control" value="Разрешение" placeholder="Название характеристики">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input type="text" class="form-control" value="1920x1080" placeholder="Значение">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-2">-->
+<!--                                    <button type="button" class="btn btn-outline-danger" onclick="removeCharacteristic(this)">-->
+<!--                                        <i class="bi bi-trash"></i>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <button type="button" class="btn btn-outline-success" onclick="addCharacteristic()">-->
+<!--                            <i class="bi bi-plus-circle me-1"></i> Добавить характеристику-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>-->
+<!--                        <button type="button" class="btn btn-accent" onclick="saveCharacteristics()">Сохранить</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Модальное окно отзывов &ndash;&gt;-->
+<!--        <div class="modal fade" id="reviewsModal" tabindex="-1">-->
+<!--            <div class="modal-dialog modal-xl">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title text-accent"><i class="bi bi-chat-dots me-2"></i>Управление отзывами</h5>-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div class="table-responsive">-->
+<!--                            <table class="table table-hover">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>Автор</th>-->
+<!--                                    <th>Рейтинг</th>-->
+<!--                                    <th>Дата</th>-->
+<!--                                    <th>Отзыв</th>-->
+<!--                                    <th>Статус</th>-->
+<!--                                    <th>Действия</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <td>Иван Петров</td>-->
+<!--                                    <td>-->
+<!--                                    <span class="text-warning">-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star"></i>-->
+<!--                                    </span>-->
+<!--                                    </td>-->
+<!--                                    <td>15.05.2024</td>-->
+<!--                                    <td>Отличная система, качество звука превосходное...</td>-->
+<!--                                    <td><span class="badge bg-success">Опубликован</span></td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-outline-warning me-1">-->
+<!--                                            <i class="bi bi-pencil"></i>-->
+<!--                                        </button>-->
+<!--                                        <button class="btn btn-sm btn-outline-danger">-->
+<!--                                            <i class="bi bi-trash"></i>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Мария Сидорова</td>-->
+<!--                                    <td>-->
+<!--                                    <span class="text-warning">-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                        <i class="bi bi-star-fill"></i>-->
+<!--                                    </span>-->
+<!--                                    </td>-->
+<!--                                    <td>10.05.2024</td>-->
+<!--                                    <td>Покупкой очень довольна, рекомендую!</td>-->
+<!--                                    <td><span class="badge bg-warning">На модерации</span></td>-->
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-outline-success me-1">-->
+<!--                                            <i class="bi bi-check"></i>-->
+<!--                                        </button>-->
+<!--                                        <button class="btn btn-sm btn-outline-danger">-->
+<!--                                            <i class="bi bi-x"></i>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- Основной контент -->
+    <div id="content">
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item"><a href="adminProductList.html">Управление товарами</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактировать товар</li>
+            </ol>
+        </nav>
+
+        <!-- Форма редактирования -->
+        <div class="card shadow-sm">
+<!--            <div class="loader-overlay">-->
+<!--                <div class="spinner-wrapper">-->
+<!--                    <div class="spinner"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="card-header">
+                <h5 class="mb-0 text-accent"><i class="bi bi-pencil-square me-2"></i> Редактирование товара Edge EDBPRO6 Lite 4Ом</h5>
+            </div>
+            <div class="card-body">
+                <form id="edit-product-form">
+                    <!-- Производитель -->
+                    <div class="mb-3 row">
+                        <label for="manufacturer" class="col-sm-3 col-form-label">Производитель</label>
+                        <div class="col-sm-9">
+                            <select id="manufacturer" class="form-select">
+                                <option value="">Выберите производителя</option>
+                                <option selected>Edge</option>
+                                <option>Другой бренд</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Название -->
+                    <div class="mb-3 row">
+                        <label for="product-name" class="col-sm-3 col-form-label">Название</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="product-name" class="form-control" value="EDBPRO6 Lite 4Ом" placeholder="Введите название товара">
+                        </div>
+                    </div>
+                    <!-- Описание -->
+                    <div class="mb-3 row">
+                        <label for="description" class="col-sm-3 col-form-label">Описание</label>
+                        <div class="col-sm-9">
+                            <textarea id="description" class="form-control" style="height:200px;" placeholder="HTML-редактор">Высококачественный автомобильный динамик Edge EDBPRO6 Lite 4Ом диаметром 6,5 дюймов с диффузором из прессованной целлюлозы и тканевым подвесом. Обеспечивает отличное качество звука в диапазоне частот 70-10000 Гц с номинальной мощностью 130 Вт и пиковой мощностью 260 Вт.</textarea>
+                        </div>
+                    </div>
+                    <!-- Цена -->
+                    <div class="mb-3 row">
+                        <label for="price" class="col-sm-3 col-form-label">Цена (₽)</label>
+                        <div class="col-sm-9">
+                            <input type="number" id="price" class="form-control" value="2190.00" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+                    <!-- Количество -->
+                    <div class="mb-3 row">
+                        <label for="quantity" class="col-sm-3 col-form-label">Количество</label>
+                        <div class="col-sm-9">
+                            <input type="number" id="quantity" class="form-control" value="15" placeholder="0">
+                        </div>
+                    </div>
+
+                    <!-- Основное изображение -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Основное изображение</label>
+                        <div class="col-sm-9">
+                            <div class="main-image-container">
+                                <img id="main-image" src="./assets/img/377-1.jpg"
+                                     class="img-thumbnail" style="max-width: 7rem;" alt="Основное изображение товара">
+                                <button type="button" class="main-image-edit" onclick="document.getElementById('main-image-input').click()">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="main-image-input" class="d-none" accept="image/*">
+                            <small class="text-muted d-block mt-2">JPEG, PNG. Макс. 2 МБ.</small>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        <label class="col-sm-3 col-form-label">Дополнительные изображения</label>
+                        <div class="col-sm-9 right-dop-img-cont">
+                            <div class="container-dop-img swiper" >
+                                <div class="swiper-wrapper items-dop-img">
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-2.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-3.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-4.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-5.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-2.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-3.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-4.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="swiper-slide item-dop-img">
+                                        <img class="img-thumbnail" src="./assets/img/377-5.jpg" alt="Изображение 1">
+                                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <button class="round-button prev-custom">
+                                    <img src="./assets/angle-left-white.svg">
+                                </button>
+                                <button class="round-button next-custom">
+                                    <img src="./assets/angle-right-white.svg">
+                                </button>
+                            </div>
+                            <button type="button"
+                                    class="btn btn-outline-secondary add-image-btn d-flex align-items-center justify-content-center"
+                                    onclick="addNewImage()">
+                                <i class="bi bi-plus-circle fs-1 text-muted"></i>
+                            </button>
+                            <!-- скрытый input -->
+                            <input type="file" id="additional-image-input" class="d-none" accept="image/*" multiple>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Характеристики товара -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Характеристики</label>
+                        <div class="col-sm-9">
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-secondary me-2">18 характеристик</span>
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#characteristicsModal">
+                                    <i class="bi bi-pencil me-1"></i> Редактировать
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Отзывы -->
+                    <div class="mb-4 row">
+                        <label class="col-sm-3 col-form-label">Отзывы</label>
+                        <div class="col-sm-9">
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-secondary me-2">5 отзывов</span>
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#reviewsModal">
+                                    <i class="bi bi-pencil me-1"></i> Редактировать
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопки действий -->
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-outline-secondary me-2">
+                            <i class="bi bi-x-circle"></i> Отмена
+                        </button>
+                        <button type="submit" class="btn btn-accent">
+                            <i class="bi bi-save-fill"></i> Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal fade" id="characteristicsModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-accent"><i class="bi bi-sliders me-2"></i>Редактирование характеристик товара</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <h6 class="text-muted mb-3">Обязательные характеристики</h6>
+
+                        <div id="characteristics-list">
+
+                            <!-- Диаметр -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Диаметр/типоразмер</label>
+                                    <input type="number" class="form-control" value="6.5">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+
+                            <!-- Импеданс -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Re (Номинальное сопротивление/Импеданс), Ом</label>
+                                    <input type="number" class="form-control" value="4">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+
+                            <!-- Частоты -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Нижняя граница частот, Гц</label>
+                                    <input type="number" class="form-control" value="70">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Верхняя граница частот, Гц</label>
+                                    <input type="number" class="form-control" value="10000">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+
+                            <!-- Пиковая мощность -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Max (Пиковая мощность), Вт
+                                    </label>
+                                    <input type="number" class="form-control" value="260">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+
+                            <!-- Номинальная мощность -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">RMS (Номинальная мощность), Вт</label>
+                                    <input type="number" class="form-control" value="130">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+
+                            <!-- Чувствительность -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">SPL (чувствительность), Дб</label>
+                                    <input type="number" class="form-control" value="94">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Число</span>
+                                </div>
+                            </div>
+
+
+                            <hr class="mb-4 mt-2">
+                            <h6 class="text-muted mb-3">Остальные характеристики</h6>
+
+                            <!-- Материал диффузора -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Материал диффузора</label>
+                                    <input type="text" class="form-control" value="Прессованная целлюлоза">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Строка</span>
+                                </div>
+                            </div>
+
+                            <!-- Материал подвеса -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Материал подвеса</label>
+                                    <input type="text" class="form-control" value="Ткань">
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <span class="form-text">Тип: Строка</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-outline-success" onclick="addCharacteristic()">
+                                <i class="bi bi-plus-circle me-1"></i> Добавить характеристику
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Кнопка добавления -->
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-accent" onclick="saveCharacteristics()">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap JS + Popper -->
+<script src="bootstrap/bootstrap.bundle.min.js"></script>
+<script src="swiper/swiper-bundle.min.js"></script>
+<script>
+    // Тоггл бокового меню
+    document.getElementById('btn-toggle')
+        .addEventListener('click', () => document.getElementById('sidebar').classList.toggle('collapsed'));
+
+    // Инициализация Swiper
+    const swiper = new Swiper('.container-dop-img', {
+        slidesPerView: 'auto',
+        spaceBetween: 2,
+        navigation: {
+            nextEl: '.next-custom',
+            prevEl: '.prev-custom',
+        },
+    });
+
+    // Обработка основного изображения
+    document.getElementById('main-image-input').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('main-image').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Функции для работы с изображениями
+    function addNewImage() {
+        document.getElementById('additional-image-input').click();
+    }
+
+    document.getElementById('additional-image-input').addEventListener('change', function(e) {
+        const files = e.target.files;
+        for (let file of files) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const slideHTML = `
+                    <div class="swiper-slide">
+                        <img src="${e.target.result}" alt="Дополнительное изображение">
+                        <button type="button" class="btn btn-danger btn-sm image-remove-btn" onclick="removeImage(this)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                `;
+                const addButton = document.querySelector('.add-image-btn').parentElement;
+                addButton.insertAdjacentHTML('beforebegin', slideHTML);
+                swiper.update();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function removeImage(button) {
+        const slide = button.closest('.swiper-slide');
+        slide.remove();
+        swiper.update();
+    }
+
+    // Функции для характеристик
+    function addCharacteristic() {
+        const characteristicHTML = `
+            <div class="row mb-3 characteristic-item">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Название характеристики">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Значение">
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-outline-danger" onclick="removeCharacteristic(this)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        document.getElementById('characteristics-list').insertAdjacentHTML('beforeend', characteristicHTML);
+    }
+
+    function removeCharacteristic(button) {
+        button.closest('.characteristic-item').remove();
+    }
+
+    function saveCharacteristics() {
+        const characteristics = document.querySelectorAll('.characteristic-item').length;
+        document.querySelector('#characteristicsModal').previousElementSibling.querySelector('.badge').textContent = `${characteristics} характеристик`;
+        bootstrap.Modal.getInstance(document.getElementById('characteristicsModal')).hide();
+    }
+
+    // Тултипы (если нужны)
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        .forEach(el => new bootstrap.Tooltip(el));
+
+    // Обработка формы (пример)
+    document.getElementById('edit-product-form').addEventListener('submit', e => {
+        e.preventDefault();
+        // TODO: собрать данные и выполнить AJAX-запрос на сохранение
+        alert('Товар сохранён!');
+    });
+</script>
+</body>
+</html>

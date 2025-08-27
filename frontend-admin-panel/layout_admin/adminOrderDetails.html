@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Управление заказами</title>
+
+    <!-- Локальный Bootstrap -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование системы</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="#" class="list-group-item list-group-item-action active">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div id="content">
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item"><a href="#">Управление заказами</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактировать заказ</li>
+            </ol>
+        </nav>
+
+        <!-- Детали заказа -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-receipt me-1"></i> Детали заказа</h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Дата заказа</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" readonly value="27.05.2024 14:32">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Статус заказа</label>
+                    <div class="col-sm-9">
+                        <select class="form-select">
+                            <option selected>Завершен</option>
+                            <option>Новый</option>
+                            <option>Отправлен</option>
+                            <option>Доставлен</option>
+                            <option>Отменён</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Тип доставки</label>
+                    <div class="col-sm-9">
+                        <select class="form-select">
+                            <option selected>Самовывоз</option>
+                            <option>СДЕК</option>
+                            <option>ПОЧТА</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Тип оплаты</label>
+                    <div class="col-sm-9">
+                        <select class="form-select">
+                            <option selected>Ю-Касса</option>
+                            <option>При получении</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Адрес доставки</label>
+                    <div class="col-sm-6">-</div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil-fill me-1"></i> Редактировать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-end">
+                <button type="submit" class="btn btn-accent">
+                    <i class="bi bi-save-fill"></i> Сохранить
+                </button>
+            </div>
+        </div>
+
+        <!-- Товары в заказе -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-box-seam me-1"></i> Товары в заказе</h6>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="editOrderItems()">
+                    <i class="bi bi-pencil-square me-1"></i> Редактировать товары
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered mb-0" id="orderItemsTable">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Название</th>
+                            <th>Количество</th>
+                            <th>Цена за шт.</th>
+                            <th>Итого</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="orderItemsBody">
+                        <tr data-product-id="1">
+                            <td>Pioneer TS-G1320F</td>
+                            <td class="quantity-cell">2</td>
+                            <td class="price-cell">2 500 ₽</td>
+                            <td class="total-cell">5 000 ₽</td>
+
+                        </tr>
+                        <tr data-product-id="2">
+                            <td>JBL CS1214B</td>
+                            <td class="quantity-cell">1</td>
+                            <td class="price-cell">7 500 ₽</td>
+                            <td class="total-cell">7 500 ₽</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Общая сумма:</strong></td>
+                            <td><strong id="orderTotal">12 500 ₽</strong></td>
+
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer" id="editOrderFooter" style="display: none;">
+                <button type="button" class="btn btn-sm btn-outline-success me-2" onclick="addOrderItem()">
+                    <i class="bi bi-plus-circle me-1"></i> Добавить товар
+                </button>
+                <button type="button" class="btn btn-sm btn-success me-2" onclick="saveOrderItems()">
+                    <i class="bi bi-check-circle me-1"></i> Сохранить изменения
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="cancelEditOrderItems()">
+                    <i class="bi bi-x-circle me-1"></i> Отменить
+                </button>
+            </div>
+        </div>
+
+        <!-- Информация о платеже -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-credit-card me-1"></i> Платёж</h6>
+                <div>
+                    <button type="button" class="btn btn-sm btn-outline-primary me-2" onclick="viewPaymentInfo(12345)">
+                        <i class="bi bi-eye-fill me-1"></i> Просмотреть
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="initiateRefund()">
+                        <i class="bi bi-arrow-counterclockwise me-1"></i> Возврат средств
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- История заказов -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-clock-history me-1"></i> История заказа</h6>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Новый заказ</span>
+                        <span class="text-muted">27.05.2024 14:32</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>В обработке</span>
+                        <span class="text-muted">27.05.2024 15:10</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Завершён</span>
+                        <span class="text-muted">28.05.2024 10:00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Информация о клиенте -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-person-fill me-1"></i> Информация о покупателе</h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">ФИО</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" readonly value="Александр Московченко">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Телефон</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" readonly value="+7 (952) 430-58-83">
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3 col-form-label">E-mail</label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control-plaintext" readonly value="aleks.moskov@gmail.com">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+    <!-- Модальное окно с деталями платежа -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Платёж YooKassa №<span id="pm-id">2fc9094c-000f-5000-b000-19b4a606b2eb</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Основная информация -->
+                    <h6 class="text-accent">Основная информация</h6>
+                    <dl class="row">
+                        <dt class="col-sm-3">ID платежа YooKassa</dt>
+                        <dd class="col-sm-9">2fc9094c-000f-5000-b000-19b4a606b2eb</dd>
+                        <dt class="col-sm-3">Статус платежа</dt>
+                        <dd class="col-sm-9"><strong>Успешно завершен</strong></dd>
+
+                        <dt class="col-sm-3">Сумма</dt>
+                        <dd class="col-sm-9"><strong>15999.00</strong> ₽</dd>
+
+                        <dt class="col-sm-3">Валюта</dt>
+                        <dd class="col-sm-9">RUB</dd>
+
+                        <dt class="col-sm-3">Описание</dt>
+                        <dd class="col-sm-9">Оплата заказа №12345</dd>
+
+
+                        <dt class="col-sm-3">Создано</dt>
+                        <dd class="col-sm-9" id="created-at"></dd>
+
+                        <dt class="col-sm-3">Списано</dt>
+                        <dd class="col-sm-9" id="charged-at"></dd>
+
+
+                    </dl>
+
+                    <hr>
+                    <h6 class="text-accent mt-3">Метод оплаты</h6>
+                    <dl class="row">
+                        <dt class="col-sm-3">Тип</dt>
+                        <dd class="col-sm-9">Банковская карта</dd>
+
+                        <dt class="col-sm-3">Номер карты:</dt>
+                        <dd class="col-sm-9">555555****4444</dd>
+
+                        <dt class="col-sm-3">Срок действия</dt>
+                        <dd class="col-sm-9">12/2022</dd>
+
+                        <dt class="col-sm-3">Тип карты</dt>
+                        <dd class="col-sm-9">MasterCard</dd>
+
+                    </dl>
+
+<!--                    &lt;!&ndash; Receipt &ndash;&gt;-->
+<!--                    <h6 class="text-accent">Чек (receipt)</h6>-->
+<!--                    <h6 class="mt-3">Покупатель</h6>-->
+<!--                    <dl class="row">-->
+<!--                        <dt class="col-sm-3">ФИО</dt>-->
+<!--                        <dd class="col-sm-9">Иван Иванов</dd>-->
+
+<!--                        <dt class="col-sm-3">ИНН</dt>-->
+<!--                        <dd class="col-sm-9">1234567890</dd>-->
+
+<!--                        <dt class="col-sm-3">Email</dt>-->
+<!--                        <dd class="col-sm-9">ivanov@mail.ru</dd>-->
+
+<!--                        <dt class="col-sm-3">Телефон</dt>-->
+<!--                        <dd class="col-sm-9">+7 123 456-78-90</dd>-->
+<!--                    </dl>-->
+
+<!--                    <h6 class="mt-4">Позиции товара</h6>-->
+<!--                    <div class="table-responsive">-->
+<!--                        <table class="table table-sm">-->
+<!--                            <thead class="table-light">-->
+<!--                            <tr>-->
+<!--                                <th>Описание</th>-->
+<!--                                <th>Сумма</th>-->
+<!--                                <th>НДС (vat_code)</th>-->
+<!--                                <th>Кол-во</th>-->
+<!--                                <th>Ед.-->
+<!--                                </th>-->
+<!--                                <th>Предмет (payment_subject)</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td>Акустическая система XYZ</td>-->
+<!--                                <td>12999.00 ₽</td>-->
+<!--                                <td>2</td>-->
+<!--                                <td>1</td>-->
+<!--                                <td>шт.</td>-->
+<!--                                <td>commodity</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>Кабель AUX</td>-->
+<!--                                <td>500.00 ₽</td>-->
+<!--                                <td>2</td>-->
+<!--                                <td>2</td>-->
+<!--                                <td>шт.</td>-->
+<!--                                <td>commodity</td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+                </div><!-- /.modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!-- JS для открытия модального окна -->
+<script src="bootstrap/bootstrap.bundle.min.js"></script>
+<script>
+    function viewPaymentInfo(id) {
+        // вставляем номер в заголовок
+        document.getElementById('pm-id').textContent = id;
+        // TODO: сюда можно AJAX-ом подгружать реальные данные по id
+        // и заполнять остальные поля модалки.
+        const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        modal.show();
+    }
+    const createdAt = new Date("2025-05-28T11:37:48.723Z");
+    const chargedAt = new Date("2025-05-28T11:40:13.207Z");
+
+    const options = {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    };
+
+    document.getElementById("created-at").textContent = createdAt.toLocaleString('ru-RU', options);
+    document.getElementById("charged-at").textContent = chargedAt.toLocaleString('ru-RU', options);
+</script>

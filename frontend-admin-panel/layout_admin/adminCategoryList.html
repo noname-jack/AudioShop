@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel — Управление категориями</title>
+
+    <!-- Локальный Bootstrap -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/styles_admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Шапка -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light me-3" id="btn-toggle">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <img class="logo-svg" src="../src/assets/svg-icons/logo.svg">
+            <a class="navbar-brand fs-4" href="#">Администрирование системы</a>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-light">
+        <div class="list-group list-group-flush">
+            <a href="./adminProductList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-box-seam me-2"></i> Товары
+            </a>
+            <a href="./adminCategoryList.html" class="list-group-item list-group-item-action active">
+                <i class="bi bi-tags-fill me-2"></i> Категории
+            </a>
+            <a href="./adminAttributeList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-sliders me-2"></i> Характеристики
+            </a>
+            <a href="./adminBrandList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-award-fill me-2"></i> Бренды
+            </a>
+            <a href="./adminUserList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-people-fill me-2"></i> Пользователи
+            </a>
+            <a href="./adminOrdersList.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-basket-fill me-2"></i> Заказы
+            </a>
+            <a href="./adminConfigurator.html" class="list-group-item list-group-item-action">
+                <i class="bi bi-speaker-fill me-2"></i> Конфигуратор
+            </a>
+        </div>
+    </div>
+
+    <!-- Основной контент + фильтры -->
+    <div id="content">
+        <!-- Хлебные крошки -->
+        <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Управление категориями</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <!-- 1) Список категорий -->
+            <div class="col-lg-9">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 text-accent"><i class="bi bi-tags-fill me-2"></i> Список категорий</h5>
+                        <button class="btn btn-accent" onclick="startEditCategory()">
+                            <i class="bi bi-plus-lg"></i> Добавить категорию
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- Заголовки таблицы -->
+                        <div class="category-content" style="background: #f8f9fa; font-weight: 600; color: #6c757d; font-size: 0.9em;">
+                            <div class="category-toggle"></div>
+                            <div class="category-info">
+                                <div>ID</div>
+                                <div>Название</div>
+                                <div class="d-none d-lg-block">Родитель</div>
+                                <div class="d-none d-xl-block">Описание</div>
+                                <div>Действия</div>
+                            </div>
+                        </div>
+
+                        <!-- Древовидный список категорий -->
+                        <ul class="category-tree" id="categories-tree">
+                            <!-- Корневая категория 1 -->
+                            <li class="category-item" data-level="0" data-id="53">
+                                <div class="category-content">
+                                    <button class="category-toggle" onclick="toggleCategory(this)">
+                                        <i class="bi bi-chevron-down"></i>
+                                    </button>
+                                    <div class="category-info">
+                                        <div class="category-id">#53</div>
+                                        <div class="category-name">
+                                            <i class="bi bi-folder2-open text-warning me-1"></i>
+                                            Динамики
+                                        </div>
+                                        <div class="category-parent d-none d-lg-block">—</div>
+                                        <div class="category-description d-none d-xl-block">Категория акустики для автомобилей</div>
+                                        <div class="category-actions">
+                                            <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(53)" title="Редактировать">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(53)" title="Удалить">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="category-children">
+                                    <!-- Подкатегория уровня 1 -->
+                                    <li class="category-item" data-level="1" data-id="63" data-parent="53">
+                                        <div class="category-content">
+                                            <button class="category-toggle" onclick="toggleCategory(this)">
+                                                <i class="bi bi-chevron-down"></i>
+                                            </button>
+                                            <div class="category-info">
+                                                <div class="category-id">#63</div>
+                                                <div class="category-name">
+                                                    <i class="bi bi-folder2 text-primary me-1"></i>
+                                                    Эстрадная акустика
+                                                </div>
+                                                <div class="category-parent d-none d-lg-block">Динамики</div>
+                                                <div class="category-description d-none d-xl-block">-</div>
+                                                <div class="category-actions">
+
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(63)" title="Редактировать">
+                                                        <i class="bi bi-pencil-fill"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(63)" title="Удалить">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="category-children">
+                                            <!-- Подкатегория уровня 2 -->
+                                            <li class="category-item" data-level="2" data-id="64" data-parent="63">
+                                                <div class="category-content">
+                                                    <button class="category-toggle no-children">
+                                                        <i class="bi bi-dot"></i>
+                                                    </button>
+                                                    <div class="category-info">
+                                                        <div class="category-id">#64</div>
+                                                        <div class="category-name">
+                                                            <i class="bi bi-speaker text-success me-1"></i>
+                                                            Твитеры эстрадные
+                                                        </div>
+                                                        <div class="category-parent d-none d-lg-block">Эстрадная акустика акустика</div>
+                                                        <div class="category-description d-none d-xl-block">-</div>
+                                                        <div class="category-actions">
+
+                                                            <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(64)" title="Редактировать">
+                                                                <i class="bi bi-pencil-fill"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(64)" title="Удалить">
+                                                                <i class="bi bi-trash-fill"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="category-item" data-level="2" data-id="65" data-parent="63">
+                                                <div class="category-content">
+                                                    <button class="category-toggle no-children">
+                                                        <i class="bi bi-dot"></i>
+                                                    </button>
+                                                    <div class="category-info">
+                                                        <div class="category-id">#65</div>
+                                                        <div class="category-name">
+                                                            <i class="bi bi-speaker  text-success me-1"></i>
+                                                            Мидбасы эстрадные
+                                                        </div>
+                                                        <div class="category-parent d-none d-lg-block">Эстрадная акустика</div>
+                                                        <div class="category-description d-none d-xl-block">-</div>
+                                                        <div class="category-actions">
+
+                                                            <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(65)" title="Редактировать">
+                                                                <i class="bi bi-pencil-fill"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(65)" title="Удалить">
+                                                                <i class="bi bi-trash-fill"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Еще одна подкатегория уровня 1 -->
+                                    <li class="category-item" data-level="1" data-id="66" data-parent="53">
+                                        <div class="category-content">
+                                            <button class="category-toggle no-children">
+                                                <i class="bi bi-dot"></i>
+                                            </button>
+                                            <div class="category-info">
+                                                <div class="category-id">#66</div>
+                                                <div class="category-name">
+                                                    <i class="bi bi-speaker text-success me-1"></i>
+                                                    Коаксиальная акустика
+                                                </div>
+                                                <div class="category-parent d-none d-lg-block">Динамики</div>
+                                                <div class="category-description d-none d-xl-block">-</div>
+                                                <div class="category-actions">
+
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(66)" title="Редактировать">
+                                                        <i class="bi bi-pencil-fill"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(66)" title="Удалить">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Корневая категория 2 -->
+                            <li class="category-item" data-level="0" data-id="67">
+                                <div class="category-content">
+                                    <button class="category-toggle no-children">
+                                        <i class="bi bi-dot"></i>
+                                    </button>
+                                    <div class="category-info">
+                                        <div class="category-id">#67</div>
+                                        <div class="category-name">
+                                            <i class="bi bi-folder2 text-warning me-1"></i>
+                                            Усилители
+                                        </div>
+                                        <div class="category-parent d-none d-lg-block">—</div>
+                                        <div class="category-description d-none d-xl-block">Автомобильные усилители звука</div>
+                                        <div class="category-actions">
+
+                                            <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(67)" title="Редактировать">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(67)" title="Удалить">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <ul class="category-children">
+                                <!-- Подкатегория уровня 1 -->
+                                <!-- Еще одна подкатегория уровня 1 -->
+                                <li class="category-item" data-level="1" data-id="66" data-parent="53">
+                                    <div class="category-content">
+                                        <button class="category-toggle no-children">
+                                            <i class="bi bi-dot"></i>
+                                        </button>
+                                        <div class="category-info">
+                                            <div class="category-id">#66</div>
+                                            <div class="category-name">
+                                                <i class="bi bi-speaker text-success me-1"></i>
+                                                Моноблоки
+                                            </div>
+                                            <div class="category-parent d-none d-lg-block">Усилители</div>
+                                            <div class="category-description d-none d-xl-block">-</div>
+                                            <div class="category-actions">
+
+                                                <button class="btn btn-sm btn-outline-primary" onclick="startEditCategory(66)" title="Редактировать">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(66)" title="Удалить">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header text-accent">
+                        <i class="bi bi-funnel-fill me-2"></i> Фильтры
+                    </div>
+                    <div class="card-body">
+                        <form id="category-form">
+                            <!-- Parent -->
+                            <div class="mb-3">
+                                <label for="parent-id" class="form-label">Родительская категория</label>
+                                <select id="parent-id" class="form-select opt-indent">
+                                    <option value="">— Нет —</option>
+                                    <!-- Пример вложенных опций -->
+                                    <option value="53" data-level="0">Акустические системы</option>
+                                    <option value="63" data-level="1">Модель A</option>
+                                    <option value="64" data-level="2">Вариант 1</option>
+                                    <!-- … -->
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="filter-name" class="form-label">Название категории</label>
+                                <input type="text" id="filter-name" class="form-control" placeholder="Введите название">
+                            </div>
+                            <!-- Actions -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-accent">Применить</button>
+                                <button type="button" id="reset-filters" class="btn btn-outline-secondary">Сбросить</button>
+                            </div>
+                            <input type="hidden" id="cat-id" value="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.row -->
+    </div>
+</div>
+<!-- Bootstrap JS -->
+<script src="bootstrap/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('btn-toggle')
+        .addEventListener('click', () => document.getElementById('sidebar').classList.toggle('collapsed'));
+
+    // Заглушки для логики
+    function startEditCategory(id) {
+        // TODO: загрузить данные по id, заполнить форму и прокрутить страницу к форме
+        window.location.href="./adminCategoryDetails.html";
+    }
+    function cancelEdit() {
+        document.getElementById('category-form').reset();
+        document.getElementById('cat-id').value = '';
+    }
+    function deleteCategory(id) {
+        if (confirm('Удалить категорию #' + id + '?')) {
+            // TODO: выполнить AJAX-удаление и обновить таблицу
+        }
+    }
+    document.getElementById('category-form').addEventListener('submit', e => {
+        e.preventDefault();
+        // TODO: собрать id, name, desc, parent и сохранить через AJAX
+        alert('Категория сохранена!');
+    });
+    // Функции для работы с деревом категорий
+    function toggleCategory(button) {
+        const categoryItem = button.closest('.category-item');
+        const icon = button.querySelector('i');
+
+        if (categoryItem.classList.contains('collapsed')) {
+            categoryItem.classList.remove('collapsed');
+            icon.className = 'bi bi-chevron-down';
+        } else {
+            categoryItem.classList.add('collapsed');
+            icon.className = 'bi bi-chevron-right';
+        }
+    }
+
+
+</script>
+</body>
+</html>
